@@ -1,6 +1,6 @@
 {
   "name": "@trustyourwebsite/security-headers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-Frame-Options, etc.) with A+ to F scoring. CI-friendly with configurable minimum grade threshold.",
   "type": "module",
   "main": "dist/index.js",
@@ -9,8 +9,11 @@
     "security-headers": "dist/cli.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "README.md",
+    "LICENSE"
   ],
+  "sideEffects": false,
   "scripts": {
     "build": "tsc",
     "test": "vitest run",
@@ -20,29 +23,42 @@
   },
   "keywords": [
     "security",
-    "headers",
+    "security-headers",
     "hsts",
     "csp",
     "content-security-policy",
     "xss",
+    "x-frame-options",
+    "web-security",
+    "http-headers",
     "scanner",
     "checker",
+    "auditor",
     "ci",
     "devops",
-    "compliance"
+    "compliance",
+    "cli",
+    "nodejs",
+    "typescript",
+    "zero-dependencies",
+    "owasp",
+    "gdpr"
   ],
   "homepage": "https://trustyourwebsite.nl",
   "repository": {
     "type": "git",
-    "url": "https://github.com/trustyourwebsite/security-headers"
+    "url": "git+https://github.com/trustyourwebsite/security-headers.git"
   },
   "bugs": {
     "url": "https://github.com/trustyourwebsite/security-headers/issues"
   },
-  "author": "TrustYourWebsite Editorial",
+  "author": "TrustYourWebsite <info@trustyourwebsite.nl> (https://trustyourwebsite.nl)",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "devDependencies": {
     "typescript": "^5.7.0",
