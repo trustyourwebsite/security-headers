@@ -163,6 +163,12 @@ security-headers:
 
 - Node.js 18+
 
+## Related
+
+- [TrustYourWebsite](https://trustyourwebsite.nl) — Full website compliance scanning for EU businesses
+- [@trustyourwebsite/dns-auth-check](https://github.com/trustyourwebsite/dns-auth-check) — SPF, DKIM, DMARC, BIMI and MTA-STS email authentication auditor
+- [@trustyourwebsite/cookie-consent-validator](https://github.com/trustyourwebsite/cookie-consent-validator) — Verify cookie consent banners actually stop tracking on "Reject All"
+
 ## License
 
 MIT
