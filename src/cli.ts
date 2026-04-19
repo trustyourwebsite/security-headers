@@ -9,6 +9,17 @@ import { formatTable } from './formatters/table.js';
 import { formatJson } from './formatters/json.js';
 import { formatCsv } from './formatters/csv.js';
 import { formatText } from './formatters/text.js';
+import { createRequire } from 'node:module';
+
+/**
+ * Reads the package version from package.json.
+ * @returns The version string from package.json
+ */
+function getVersion(): string {
+  const require = createRequire(import.meta.url);
+  const pkg = require('../package.json') as { version: string };
+  return pkg.version;
+}
 
 const VALID_FORMATS = new Set(['json', 'text', 'table', 'csv']);
 const VALID_GRADES = new Set(['A+', 'A', 'B', 'C', 'D', 'F']);
@@ -64,7 +75,7 @@ function parseArgs(argv: string[]): { url: string; options: CliOptions } {
 
       case '--version':
       case '-v':
-        process.stdout.write('1.0.0\n');
+        process.stdout.write(getVersion() + '\n');
         process.exit(0);
         break;
 

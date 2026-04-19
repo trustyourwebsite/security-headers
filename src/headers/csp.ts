@@ -77,7 +77,9 @@ export function analyzeCsp(headers: Record<string, string>): HeaderResult {
         }
       } else if (values.includes(dangerous)) {
         warnings.push(`${directive} contains ${dangerous}`);
-        score -= 2;
+        // unsafe-inline in style-src is nearly universal and far less dangerous than in script-src
+        const penalty = directive === 'style-src' && dangerous === "'unsafe-inline'" ? 1 : 2;
+        score -= penalty;
       }
     }
   }

@@ -13,6 +13,7 @@ import {
   analyzeCoep,
   analyzeCacheControl,
   analyzeInfoDisclosure,
+  analyzeSetCookie,
 } from './headers/index.js';
 import { calculateScore, scoreToGrade } from './grader.js';
 
@@ -41,6 +42,7 @@ export async function checkHeaders(
     analyzeCorp(response.headers),
     analyzeCoep(response.headers),
     analyzeCacheControl(response.headers),
+    analyzeSetCookie(response.setCookieHeaders, response.finalUrl),
   ];
 
   const infoDisclosure = analyzeInfoDisclosure(response.headers);

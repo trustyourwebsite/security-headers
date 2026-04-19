@@ -10,3 +10,4 @@ export { analyzeCorp } from './corp.js';
 export { analyzeCoep } from './coep.js';
 export { analyzeCacheControl } from './cache-control.js';
 export { analyzeInfoDisclosure } from './info-disclosure.js';
+export { analyzeSetCookie, parseCookieAttributes } from './set-cookie.js';

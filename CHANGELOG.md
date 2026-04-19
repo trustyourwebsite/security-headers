@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] — 2026-04-19
+
+### Added
+- **Set-Cookie validation**: new analyzer checks cookies for `Secure`, `HttpOnly`, and `SameSite` attributes. Flags missing security attributes with actionable remediation advice.
+
+### Changed
+- **CSP scoring**: `unsafe-inline` in `style-src` now receives a reduced penalty (-1) compared to `script-src` (-2), reflecting that style-src unsafe-inline is nearly universal and far less dangerous than script-src.
+- **CLI version**: `--version` flag now reads the version dynamically from package.json instead of being hardcoded.
+
+### Fixed
+- `--version` was hardcoded to `1.0.0` and would never update. Now reads from package.json.
+- HTTP client now preserves individual `Set-Cookie` headers as an array instead of joining them with commas (which corrupted cookie date fields).
+
+
 ## [1.0.1] — 2026-04-18
 
 ### Changed

@@ -1,6 +1,6 @@
 {
   "name": "@trustyourwebsite/security-headers",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-Frame-Options, etc.) with A+ to F scoring. CI-friendly with configurable minimum grade threshold.",
   "type": "module",
   "main": "dist/index.js",

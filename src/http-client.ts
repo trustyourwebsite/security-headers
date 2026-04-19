@@ -8,6 +8,8 @@ export interface HttpResponse {
   statusCode: number;
   /** Lowercase response headers */
   headers: Record<string, string>;
+  /** Raw Set-Cookie header values (preserved as array) */
+  setCookieHeaders: string[];
   /** Chain of URLs visited during redirects */
   redirectChain: string[];
   /** TLS protocol version (e.g. "TLSv1.3") */
@@ -99,9 +101,17 @@ export function fetchHeaders(
           }
         }
 
+        // Preserve Set-Cookie headers as array (they get joined with ', ' above)
+        const setCookieHeaders: string[] = [];
+        const rawSetCookie = res.headers['set-cookie'];
+        if (rawSetCookie) {
+          setCookieHeaders.push(...rawSetCookie);
+        }
+
         resolve({
           statusCode,
           headers,
+          setCookieHeaders,
           redirectChain,
           tlsVersion,
           finalUrl: currentUrl,
