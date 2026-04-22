@@ -44,7 +44,7 @@
     "owasp",
     "gdpr"
   ],
-  "homepage": "https://trustyourwebsite.nl",
+  "homepage": "https://trustyourwebsite.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/trustyourwebsite/security-headers.git"
@@ -52,7 +52,7 @@
   "bugs": {
     "url": "https://github.com/trustyourwebsite/security-headers/issues"
   },
-  "author": "TrustYourWebsite <info@trustyourwebsite.nl> (https://trustyourwebsite.nl)",
+  "author": "TrustYourWebsite <info@trustyourwebsite.com> (https://trustyourwebsite.com)",
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"

@@ -2,7 +2,7 @@
 
 Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-Frame-Options, etc.) with A+ to F scoring. CI-friendly with configurable minimum grade threshold.
 
-Built by [TrustYourWebsite](https://trustyourwebsite.nl) — automated website compliance scanning for EU small businesses.
+Built by [TrustYourWebsite](https://trustyourwebsite.com) — automated website compliance scanning for EU small businesses.
 
 ## Quick Start
 
@@ -101,7 +101,7 @@ Recommendations:
   2. Add Permissions-Policy header (MEDIUM priority)
   3. Remove server version from Server header (LOW priority)
 
-Full website compliance scan → https://trustyourwebsite.nl
+Full website compliance scan → https://trustyourwebsite.com
 ```
 
 ## Headers Checked
@@ -165,7 +165,7 @@ security-headers:
 
 ## Related
 
-- [TrustYourWebsite](https://trustyourwebsite.nl) — Full website compliance scanning for EU businesses
+- [TrustYourWebsite](https://trustyourwebsite.com) — Full website compliance scanning for EU businesses
 - [@trustyourwebsite/dns-auth-check](https://github.com/trustyourwebsite/dns-auth-check) — SPF, DKIM, DMARC, BIMI and MTA-STS email authentication auditor
 - [@trustyourwebsite/cookie-consent-validator](https://github.com/trustyourwebsite/cookie-consent-validator) — Verify cookie consent banners actually stop tracking on "Reject All"
 
@@ -175,4 +175,4 @@ MIT
 
 ---
 
-Built by [TrustYourWebsite](https://trustyourwebsite.nl) — we help EU small businesses stay compliant with automated website scanning. [Get a free compliance scan](https://trustyourwebsite.nl).
+Built by [TrustYourWebsite](https://trustyourwebsite.com) — we help EU small businesses stay compliant with automated website scanning. [Get a free compliance scan](https://trustyourwebsite.com).

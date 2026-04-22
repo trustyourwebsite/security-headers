@@ -51,7 +51,7 @@ Examples:
   security-headers https://example.com --ci --min-grade A
   security-headers https://example.com --output report.json --format json
 
-Full website compliance scan -> https://trustyourwebsite.nl
+Full website compliance scan -> https://trustyourwebsite.com
 `;
 
 /**

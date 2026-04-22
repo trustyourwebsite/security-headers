@@ -38,7 +38,7 @@ export function formatText(result: ScanResult): string {
   }
 
   lines.push('');
-  lines.push('Full website compliance scan -> https://trustyourwebsite.nl');
+  lines.push('Full website compliance scan -> https://trustyourwebsite.com');
 
   return lines.join('\n');
 }
