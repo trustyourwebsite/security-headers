@@ -20,7 +20,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Changed
 - Expanded npm keywords for better discoverability (added x-frame-options, web-security, http-headers, auditor, cli, nodejs, typescript, zero-dependencies, owasp, gdpr).
-- Replaced the placeholder `"TrustYourWebsite Editorial"` `author` field with the canonical `TrustYourWebsite <info@trustyourwebsite.nl> (https://trustyourwebsite.nl)` contact, matching the other @trustyourwebsite packages.
+- Replaced the placeholder `"TrustYourWebsite Editorial"` `author` field with the canonical `TrustYourWebsite <info@trustyourwebsite.com> (https://trustyourwebsite.com)` contact, matching the other @trustyourwebsite packages.
 - Added `"sideEffects": false` to help bundlers tree-shake unused checks.
 - Added `"publishConfig": { "access": "public" }` so scoped public publishing is explicit.
 - The published tarball now includes `README.md` and `LICENSE` alongside `dist/`.

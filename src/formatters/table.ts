@@ -67,7 +67,7 @@ export function formatTable(result: ScanResult): string {
 
   lines.push('');
   lines.push(
-    'Full website compliance scan \u2192 https://trustyourwebsite.nl'
+    'Full website compliance scan \u2192 https://trustyourwebsite.com'
   );
 
   return lines.join('\n');

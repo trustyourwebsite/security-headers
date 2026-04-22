@@ -51,8 +51,8 @@ describe('formatTable', () => {
     expect(output).toContain('TLSv1.3');
   });
 
-  it('includes trustyourwebsite.nl link', () => {
-    expect(formatTable(mockResult)).toContain('trustyourwebsite.nl');
+  it('includes trustyourwebsite.com link', () => {
+    expect(formatTable(mockResult)).toContain('trustyourwebsite.com');
   });
 
   it('shows info disclosure warnings', () => {
@@ -92,7 +92,7 @@ describe('formatText', () => {
   it('includes grade and URL', () => {
     const output = formatText(mockResult);
     expect(output).toContain('B (72/100)');
-    expect(output).toContain('trustyourwebsite.nl');
+    expect(output).toContain('trustyourwebsite.com');
   });
 
   it('shows PASS/FAIL labels', () => {
