@@ -22,6 +22,11 @@ export function formatTable(result: ScanResult): string {
   if (result.tlsVersion) {
     lines.push(`TLS:    ${result.tlsVersion}`);
   }
+  if (result.wafBlocked) {
+    lines.push(
+      `WAF:    Blocked by ${result.wafVendor ?? 'unknown WAF'} (results may be unreliable)`
+    );
+  }
   if (result.redirectChain.length > 0) {
     lines.push(
       `Redirects: ${result.redirectChain.length} hop(s)`

@@ -51,6 +51,10 @@ export interface ScanResult {
   redirectChain: string[];
   /** TLS version used (e.g. "TLSv1.3") */
   tlsVersion: string | null;
+  /** True when the response looks like a WAF / bot-protection block */
+  wafBlocked: boolean;
+  /** Detected WAF vendor when wafBlocked is true (e.g. "Akamai"), null otherwise */
+  wafVendor: string | null;
   /** Timestamp of the scan */
   timestamp: string;
 }
