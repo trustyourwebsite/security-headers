@@ -20,6 +20,11 @@ export function formatText(result: ScanResult): string {
   if (result.tlsVersion) {
     lines.push(`TLS: ${result.tlsVersion}`);
   }
+  if (result.wafBlocked) {
+    lines.push(
+      `WAF: blocked by ${result.wafVendor ?? 'unknown WAF'} - results may be unreliable`
+    );
+  }
   lines.push('');
 
   for (const header of result.headers) {

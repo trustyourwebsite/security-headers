@@ -1,5 +1,6 @@
 import type { CheckOptions, ScanResult } from './types.js';
 import { fetchHeaders } from './http-client.js';
+import { detectWaf } from './waf-detector.js';
 import {
   analyzeHsts,
   analyzeCsp,
@@ -48,6 +49,7 @@ export async function checkHeaders(
   const infoDisclosure = analyzeInfoDisclosure(response.headers);
   const score = calculateScore(headerResults, infoDisclosure);
   const grade = scoreToGrade(score, headerResults);
+  const waf = detectWaf(response.statusCode, response.headers);
 
   return {
     url: response.finalUrl,
@@ -58,6 +60,8 @@ export async function checkHeaders(
     rawHeaders: response.headers,
     redirectChain: response.redirectChain,
     tlsVersion: response.tlsVersion,
+    wafBlocked: waf.blocked,
+    wafVendor: waf.vendor,
     timestamp: new Date().toISOString(),
   };
 }
