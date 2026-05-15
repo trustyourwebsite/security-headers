@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>security-headers &mdash; Grade your website's HTTP security headers from A+ to F</title>
+<meta name="description" content="Zero-dependency Node.js CLI that scans HSTS, CSP, X-Frame-Options and more, then grades your site A+ to F. CI-friendly. Built by TrustYourWebsite.">
+<link rel="canonical" href="https://trustyourwebsite.github.io/security-headers/">
+
+<meta property="og:title" content="security-headers &mdash; Grade your HTTP security headers">
+<meta property="og:description" content="Zero-dependency CLI that scans HSTS, CSP, X-Frame-Options and more, then grades your site A+ to F. CI-friendly.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://trustyourwebsite.github.io/security-headers/">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "@trustyourwebsite/security-headers",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Cross-platform",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "url": "https://trustyourwebsite.github.io/security-headers/",
+  "downloadUrl": "https://www.npmjs.com/package/@trustyourwebsite/security-headers",
+  "codeRepository": "https://github.com/trustyourwebsite/security-headers",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Organization",
+    "name": "TrustYourWebsite",
+    "url": "https://trustyourwebsite.com"
+  }
+}
+</script>
+
+<style>
+  :root {
+    --bg: #0b1020;
+    --panel: #131a33;
+    --ink: #e7ecf7;
+    --muted: #98a2c2;
+    --accent: #6ee7b7;
+    --accent-ink: #052e1a;
+    --border: #232b4a;
+    --code-bg: #0a0f23;
+    --good: #6ee7b7;
+    --warn: #fbbf24;
+    --bad: #f87171;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: radial-gradient(1200px 600px at 70% -10%, #1c2550 0%, var(--bg) 60%);
+    min-height: 100vh;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .wrap { max-width: 980px; margin: 0 auto; padding: 32px 24px 80px; }
+
+  header.nav { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .brand { font-weight: 600; letter-spacing: 0.2px; }
+  .brand a { color: var(--ink); }
+  .nav-right { display: flex; gap: 18px; font-size: 14px; color: var(--muted); }
+  .nav-right a { color: var(--muted); }
+
+  .hero { padding: 64px 0 32px; }
+  .eyebrow { color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  h1 { font-size: clamp(28px, 4.2vw, 44px); line-height: 1.15; margin: 12px 0 16px; letter-spacing: -0.02em; }
+  .lede { font-size: 18px; color: var(--muted); max-width: 720px; }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .btn {
+    display: inline-block;
+    padding: 12px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition: transform 0.05s ease, background 0.15s ease;
+  }
+  .btn:hover { text-decoration: none; }
+  .btn:active { transform: translateY(1px); }
+  .btn-primary { background: var(--accent); color: var(--accent-ink); }
+  .btn-primary:hover { background: #5fd6a7; }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--border); }
+  .btn-ghost:hover { background: var(--panel); }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    margin: 22px 0;
+  }
+  .panel h2 { margin-top: 0; font-size: 20px; }
+  .grid { display: grid; gap: 14px; }
+  @media (min-width: 720px) {
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  }
+  .card { background: rgba(255,255,255,0.02); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .card h3 { margin: 0 0 8px; font-size: 16px; }
+  .card p { margin: 0; color: var(--muted); font-size: 14px; }
+
+  pre, code {
+    font-family: "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: 13.5px;
+  }
+  pre {
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    overflow-x: auto;
+    color: #d6dcef;
+  }
+  code { background: rgba(255,255,255,0.06); padding: 1px 6px; border-radius: 4px; }
+  pre code { background: none; padding: 0; }
+
+  .report { color: #c8d0e7; }
+  .report .ok { color: var(--good); }
+  .report .warn { color: var(--warn); }
+  .report .bad { color: var(--bad); }
+  .report .dim { color: var(--muted); }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 14px; }
+  th { color: var(--muted); font-weight: 600; }
+
+  .promo {
+    margin-top: 36px;
+    padding: 28px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #1a2547 0%, #2a3a72 100%);
+    border: 1px solid #2d3a6a;
+  }
+  .promo h2 { margin-top: 0; font-size: 22px; }
+  .promo p { color: #c6cfee; max-width: 640px; }
+
+  footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; display: flex; flex-wrap: wrap; gap: 14px; justify-content: space-between; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="nav">
+    <div class="brand">
+      <a href="https://trustyourwebsite.github.io/security-headers/">@trustyourwebsite/security-headers</a>
+    </div>
+    <nav class="nav-right">
+      <a href="#install">Install</a>
+      <a href="#headers">Headers</a>
+      <a href="#ci">CI</a>
+      <a href="https://github.com/trustyourwebsite/security-headers">GitHub</a>
+      <a href="https://trustyourwebsite.com">TrustYourWebsite</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Open source &middot; MIT &middot; Zero dependencies</div>
+    <h1>Grade your website's HTTP security headers from A+ to F.</h1>
+    <p class="lede">
+      A small Node.js CLI that scans HSTS, Content-Security-Policy, X-Frame-Options, Referrer-Policy and more,
+      then tells you exactly what's missing and how to fix it. Built by
+      <a href="https://trustyourwebsite.com">TrustYourWebsite</a> as part of our compliance scanning suite.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="https://trustyourwebsite.com">Get a free full-site compliance scan &rarr;</a>
+      <a class="btn btn-ghost" href="https://github.com/trustyourwebsite/security-headers">View on GitHub</a>
+    </div>
+  </section>
+
+  <section class="panel" id="install">
+    <h2>Quick start</h2>
+    <pre><code>npx @trustyourwebsite/security-headers https://example.com</code></pre>
+    <p style="color: var(--muted); margin-bottom: 0;">
+      Requires Node.js 18+. Want the full picture &mdash; cookies, DNS auth, accessibility, GDPR cookie consent and more &mdash;
+      across your entire site? <a href="https://trustyourwebsite.com">Run a free scan at trustyourwebsite.com</a>.
+    </p>
+  </section>
+
+  <section class="panel">
+    <h2>Sample output</h2>
+<pre class="report"><code>Security Headers Report
+=======================
+URL:    https://example.com
+Grade:  <span class="warn">B (72/100)</span>
+TLS:    TLS 1.3
+
+Headers:
+  <span class="ok">&#10003;</span> Strict-Transport-Security        max-age=31536000; includeSubDomains
+  <span class="bad">&#10007;</span> Content-Security-Policy          MISSING &mdash; Add CSP to prevent XSS attacks
+  <span class="ok">&#10003;</span> X-Content-Type-Options            nosniff
+  <span class="ok">&#10003;</span> X-Frame-Options                   DENY
+  <span class="warn">&#9888;</span> Referrer-Policy                   no-referrer-when-downgrade &mdash; Consider strict-origin-when-cross-origin
+  <span class="bad">&#10007;</span> Permissions-Policy                MISSING &mdash; Restrict access to browser features
+  <span class="ok">&#10003;</span> X-XSS-Protection                  0 (correctly disabled)
+  <span class="bad">&#10007;</span> Cross-Origin-Opener-Policy        MISSING
+
+Information Disclosure:
+  <span class="warn">&#9888;</span> Server: nginx/1.24.0 &mdash; Remove version number
+  <span class="warn">&#9888;</span> X-Powered-By: Express &mdash; Remove this header
+
+Recommendations:
+  1. Add Content-Security-Policy header (HIGH priority)
+  2. Add Permissions-Policy header (MEDIUM priority)
+  3. Remove server version from Server header (LOW priority)
+
+<span class="dim">Full website compliance scan &rarr; https://trustyourwebsite.com</span></code></pre>
+  </section>
+
+  <section class="grid grid-3">
+    <div class="card">
+      <h3>Zero runtime deps</h3>
+      <p>Only Node's built-in <code>node:https</code>, <code>node:http</code> and <code>node:tls</code>. Security tooling should have minimal attack surface.</p>
+    </div>
+    <div class="card">
+      <h3>CI-friendly</h3>
+      <p>Exit-code aware <code>--ci</code> mode with a configurable <code>--min-grade</code>. Drop it into GitHub Actions or GitLab CI in one line.</p>
+    </div>
+    <div class="card">
+      <h3>Real CSP parser</h3>
+      <p>Doesn't just check if CSP exists. Parses every directive, flags <code>unsafe-inline</code>, <code>unsafe-eval</code>, wildcards and other footguns with specific fix advice.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="headers">
+    <h2>Headers we check</h2>
+    <table>
+      <thead>
+        <tr><th>Header</th><th>Weight</th><th>What we check</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>Strict-Transport-Security</code></td><td>High</td><td>max-age &ge; 1 year, includeSubDomains, preload</td></tr>
+        <tr><td><code>Content-Security-Policy</code></td><td>High</td><td>Dangerous values, directives, wildcards</td></tr>
+        <tr><td><code>X-Content-Type-Options</code></td><td>Medium</td><td>Must be <code>nosniff</code></td></tr>
+        <tr><td><code>X-Frame-Options</code></td><td>Medium</td><td>DENY or SAMEORIGIN</td></tr>
+        <tr><td><code>Referrer-Policy</code></td><td>Medium</td><td>Privacy-respecting values</td></tr>
+        <tr><td><code>Permissions-Policy</code></td><td>Medium</td><td>Dangerous features restricted</td></tr>
+        <tr><td><code>Cross-Origin-Opener-Policy</code></td><td>Medium</td><td>same-origin preferred</td></tr>
+        <tr><td><code>Cross-Origin-Resource-Policy</code></td><td>Low</td><td>same-origin or same-site</td></tr>
+        <tr><td><code>Cross-Origin-Embedder-Policy</code></td><td>Low</td><td>require-corp for isolation</td></tr>
+        <tr><td><code>Cache-Control</code></td><td>Low</td><td>no-store or private for sensitive pages</td></tr>
+        <tr><td><code>X-XSS-Protection</code></td><td>Low</td><td>Deprecated &mdash; should be <code>0</code> or absent</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel" id="ci">
+    <h2>Drop into CI</h2>
+    <pre><code># GitHub Actions
+- name: Check security headers
+  run: npx @trustyourwebsite/security-headers https://your-site.com --ci --min-grade B</code></pre>
+  </section>
+
+  <section class="promo">
+    <h2>Headers are one piece of the compliance puzzle.</h2>
+    <p>
+      A real audit also covers cookie consent, GDPR, DNS email auth (SPF / DKIM / DMARC / BIMI / MTA-STS),
+      accessibility, TLS configuration and broken-link health &mdash; on every page of your site.
+      <a href="https://trustyourwebsite.com">TrustYourWebsite</a> runs all of those automatically and gives you a single fix-it report.
+    </p>
+    <p style="margin-top: 20px;">
+      <a class="btn btn-primary" href="https://trustyourwebsite.com">Run a free scan at trustyourwebsite.com &rarr;</a>
+    </p>
+  </section>
+
+  <section class="grid grid-2">
+    <div class="card">
+      <h3><a href="https://github.com/trustyourwebsite/dns-auth-check">dns-auth-check</a></h3>
+      <p>Audit SPF, DKIM, DMARC, BIMI and MTA-STS for any domain.</p>
+    </div>
+    <div class="card">
+      <h3><a href="https://github.com/trustyourwebsite/cookie-consent-validator">cookie-consent-validator</a></h3>
+      <p>Verify cookie banners actually stop tracking when users click "Reject All".</p>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      Built by <a href="https://trustyourwebsite.com">TrustYourWebsite</a> &mdash; automated website compliance for EU businesses.
+    </div>
+    <div>
+      <a href="https://github.com/trustyourwebsite/security-headers">Source</a> &middot;
+      <a href="https://www.npmjs.com/package/@trustyourwebsite/security-headers">npm</a> &middot;
+      <a href="https://github.com/trustyourwebsite/security-headers/blob/main/LICENSE">MIT</a>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

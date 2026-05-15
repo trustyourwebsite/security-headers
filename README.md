@@ -4,6 +4,8 @@ Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-
 
 Built by [TrustYourWebsite](https://trustyourwebsite.com) — automated website compliance scanning for EU small businesses.
 
+📖 **Docs site:** [trustyourwebsite.github.io/security-headers](https://trustyourwebsite.github.io/security-headers/)
+
 ## Quick Start
 
 ```bash
