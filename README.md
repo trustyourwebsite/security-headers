@@ -54,7 +54,7 @@ security-headers https://example.com \
 
 | Option | Default | Description |
 |--------|---------|-------------|
-| `--format` | `table` | Output format: `json`, `text`, `table`, `csv` |
+| `--format` | `table` | Output format: `json`, `text`, `table`, `csv`, `sarif` |
 | `--follow-redirects` | `true` | Follow HTTP redirects |
 | `--no-follow-redirects` | | Do not follow redirects |
 | `--max-redirects` | `5` | Maximum redirect hops |
