@@ -1,5 +1,6 @@
 export { analyzeHsts } from './hsts.js';
 export { analyzeCsp, parseCsp } from './csp.js';
+export { analyzeCspReportOnly } from './csp-report-only.js';
 export { analyzeXContentType } from './x-content-type.js';
 export { analyzeXFrame } from './x-frame.js';
 export { analyzeReferrerPolicy } from './referrer-policy.js';
