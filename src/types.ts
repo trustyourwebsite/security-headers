@@ -4,7 +4,7 @@ export type HeaderStatus = 'pass' | 'warn' | 'fail' | 'info';
 
 export type Severity = 'high' | 'medium' | 'low';
 
-export type OutputFormat = 'json' | 'text' | 'table' | 'csv';
+export type OutputFormat = 'json' | 'text' | 'table' | 'csv' | 'sarif';
 
 export interface HeaderResult {
   /** Header name (e.g. "Strict-Transport-Security") */

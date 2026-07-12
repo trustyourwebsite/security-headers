@@ -9,6 +9,7 @@ import { formatTable } from './formatters/table.js';
 import { formatJson } from './formatters/json.js';
 import { formatCsv } from './formatters/csv.js';
 import { formatText } from './formatters/text.js';
+import { formatSarif } from './formatters/sarif.js';
 import { createRequire } from 'node:module';
 
 /**
@@ -21,7 +22,7 @@ function getVersion(): string {
   return pkg.version;
 }
 
-const VALID_FORMATS = new Set(['json', 'text', 'table', 'csv']);
+const VALID_FORMATS = new Set(['json', 'text', 'table', 'csv', 'sarif']);
 const VALID_GRADES = new Set(['A+', 'A', 'B', 'C', 'D', 'F']);
 
 const HELP = `
@@ -33,7 +34,7 @@ Usage:
   security-headers <url> [options]
 
 Options:
-  --format <format>       Output format: json, text, table, csv (default: table)
+  --format <format>       Output format: json, text, table, csv, sarif (default: table)
   --follow-redirects      Follow HTTP redirects (default: true)
   --no-follow-redirects   Do not follow redirects
   --max-redirects <n>     Maximum redirect hops (default: 5)
@@ -183,6 +184,8 @@ function formatOutput(
       return formatCsv(result);
     case 'text':
       return formatText(result);
+    case 'sarif':
+      return formatSarif(result);
     case 'table':
     default:
       return formatTable(result);

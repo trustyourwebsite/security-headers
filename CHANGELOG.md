@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] — 2026-07-12
+
+### Added
+- **SARIF 2.1.0 output** (`--format sarif`) for GitHub code-scanning and CI ingestion.
+- **`Content-Security-Policy-Report-Only` analyzer**: detects report-only policies and warns when report-only is the *only* CSP present (monitoring, not enforcement).
+- `detectWaf` is now exported from the package entry point for library consumers.
+
+### Changed
+- **CSP scoring**: a directive set to `'none'` is recognized as fully locked-down (never penalized); `'nonce-…'` / `'sha256|384|512-…'` sources are credited and suppress the (browser-ignored) `'unsafe-inline'` penalty; `frame-ancestors` only earns its bonus for a real allowlist / `'self'` / `'none'`.
+- **Publishing hardened**: npm provenance attestation on release, a conditional `exports` map, `prepublishOnly` now runs lint + tests + build, and CI runs a non-blocking dependency audit.
+
+### Fixed
+- `frame-ancestors *` (and `'unsafe-inline'`) no longer incorrectly earned clickjacking-protection points.
+- Corrected a stray quote in the CSP wildcard warning message.
+
+
 ## [1.1.1] — 2026-05-20
 
 ### Added

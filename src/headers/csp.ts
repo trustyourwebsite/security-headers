@@ -16,6 +16,35 @@ interface CspDirective {
 }
 
 /**
+ * Returns true when a directive is locked down to `'none'`, which blocks all
+ * sources. Such a directive is the strongest possible configuration and must
+ * never be penalized as dangerous or missing.
+ * @param values - Parsed directive source values (lowercased)
+ * @returns True when the only value is `'none'`
+ */
+function isNone(values: string[]): boolean {
+  return values.length === 1 && values[0] === "'none'";
+}
+
+/**
+ * Returns true when a source list contains a nonce or hash source expression,
+ * e.g. `'nonce-abc123'` or `'sha256-...'`. These are legitimate, secure ways to
+ * allow specific inline scripts/styles and cause browsers to ignore any
+ * accompanying `'unsafe-inline'` backwards-compat fallback (CSP2+).
+ * @param values - Parsed directive source values (lowercased)
+ * @returns True when a nonce or hash source is present
+ */
+function hasNonceOrHash(values: string[]): boolean {
+  return values.some(
+    (v) =>
+      v.startsWith("'nonce-") ||
+      v.startsWith("'sha256-") ||
+      v.startsWith("'sha384-") ||
+      v.startsWith("'sha512-")
+  );
+}
+
+/**
  * Parses a CSP header string into individual directives.
  * @param csp - Raw CSP header value
  * @returns Parsed directives
@@ -69,12 +98,25 @@ export function analyzeCsp(headers: Record<string, string>): HeaderResult {
     const values = directiveMap.get(directive);
     if (!values) continue;
 
+    // 'none' blocks everything — it is the strongest configuration, never dangerous
+    if (isNone(values)) continue;
+
+    // A nonce or hash makes 'unsafe-inline' inert in modern browsers, so it is
+    // no longer a real weakness for that directive
+    const nonceOrHash = hasNonceOrHash(values);
+
     for (const dangerous of dangerousValues) {
       if (dangerous === '*') {
         if (values.includes('*')) {
-          warnings.push(`${directive} allows wildcard (*)"`);
+          warnings.push(`${directive} allows wildcard (*)`);
           score -= 3;
         }
+      } else if (
+        dangerous === "'unsafe-inline'" &&
+        nonceOrHash
+      ) {
+        // 'unsafe-inline' is ignored by browsers when a nonce/hash is present
+        continue;
       } else if (values.includes(dangerous)) {
         warnings.push(`${directive} contains ${dangerous}`);
         // unsafe-inline in style-src is nearly universal and far less dangerous than in script-src
@@ -84,15 +126,33 @@ export function analyzeCsp(headers: Record<string, string>): HeaderResult {
     }
   }
 
+  // Credit nonce/hash based inline handling in script-src / style-src as a
+  // secure mechanism rather than requiring 'unsafe-inline'
+  for (const directive of ['script-src', 'style-src']) {
+    const values = directiveMap.get(directive);
+    if (values && hasNonceOrHash(values)) {
+      score += 1;
+    }
+  }
+
   // Check for default-src fallback
   if (!directiveMap.has('default-src')) {
     warnings.push("no default-src directive (scripts may load from anywhere if script-src isn't set)");
     score -= 2;
   }
 
-  // Check for frame-ancestors (clickjacking protection via CSP)
-  if (directiveMap.has('frame-ancestors')) {
-    score += 2;
+  // Check for frame-ancestors (clickjacking protection via CSP).
+  // Only reward a real allowlist / 'self' / 'none' — a wildcard or 'unsafe-inline'
+  // provides no clickjacking protection and must not earn the bonus.
+  const frameAncestors = directiveMap.get('frame-ancestors');
+  if (frameAncestors) {
+    const weakFrameAncestors =
+      frameAncestors.includes('*') || frameAncestors.includes("'unsafe-inline'");
+    if (weakFrameAncestors) {
+      warnings.push('frame-ancestors is too permissive (does not restrict framing)');
+    } else {
+      score += 2;
+    }
   }
 
   // Check for upgrade-insecure-requests

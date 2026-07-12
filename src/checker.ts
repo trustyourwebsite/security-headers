@@ -4,6 +4,7 @@ import { detectWaf } from './waf-detector.js';
 import {
   analyzeHsts,
   analyzeCsp,
+  analyzeCspReportOnly,
   analyzeXContentType,
   analyzeXFrame,
   analyzeReferrerPolicy,
@@ -34,6 +35,7 @@ export async function checkHeaders(
   const headerResults = [
     analyzeHsts(response.headers),
     analyzeCsp(response.headers),
+    analyzeCspReportOnly(response.headers),
     analyzeXContentType(response.headers),
     analyzeXFrame(response.headers),
     analyzeReferrerPolicy(response.headers),

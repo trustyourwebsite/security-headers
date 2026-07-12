@@ -62,4 +62,65 @@ describe('analyzeCsp', () => {
     });
     expect(result.message).toContain('default-src');
   });
+
+  it("treats 'none' as safe, not dangerous", () => {
+    const result = analyzeCsp({
+      'content-security-policy':
+        "default-src 'self'; script-src 'none'; object-src 'none'; base-uri 'none'",
+    });
+    expect(result.status).toBe('pass');
+    // No warnings should mention script-src / object-src / base-uri being dangerous
+    expect(result.message).not.toContain('contains');
+    expect(result.message).not.toContain('wildcard');
+  });
+
+  it("does not penalize default-src 'none'", () => {
+    const result = analyzeCsp({
+      'content-security-policy': "default-src 'none'",
+    });
+    expect(result.status).toBe('pass');
+    expect(result.message).not.toContain('wildcard');
+  });
+
+  it('does not reward frame-ancestors *', () => {
+    const withWildcard = analyzeCsp({
+      'content-security-policy': "default-src 'self'; frame-ancestors *",
+    });
+    const withoutFrameAncestors = analyzeCsp({
+      'content-security-policy': "default-src 'self'",
+    });
+    // The wildcard frame-ancestors must not earn the +2 bonus
+    expect(withWildcard.score).toBeLessThanOrEqual(withoutFrameAncestors.score);
+    expect(withWildcard.status).toBe('warn');
+    expect(withWildcard.message).toContain('frame-ancestors');
+  });
+
+  it("rewards frame-ancestors 'self'", () => {
+    const withSelf = analyzeCsp({
+      'content-security-policy': "default-src 'self'; frame-ancestors 'self'",
+    });
+    const withoutFrameAncestors = analyzeCsp({
+      'content-security-policy': "default-src 'self'",
+    });
+    expect(withSelf.score).toBeGreaterThan(withoutFrameAncestors.score);
+  });
+
+  it('credits a nonce in script-src instead of penalizing unsafe-inline', () => {
+    const result = analyzeCsp({
+      'content-security-policy':
+        "default-src 'self'; script-src 'self' 'nonce-abc123' 'unsafe-inline'",
+    });
+    // unsafe-inline is inert alongside a nonce, so it must not be flagged
+    expect(result.status).toBe('pass');
+    expect(result.message).not.toContain('unsafe-inline');
+  });
+
+  it('credits a sha256 hash in script-src', () => {
+    const result = analyzeCsp({
+      'content-security-policy':
+        "default-src 'self'; script-src 'self' 'sha256-abc123' 'unsafe-inline'",
+    });
+    expect(result.status).toBe('pass');
+    expect(result.message).not.toContain('unsafe-inline');
+  });
 });
