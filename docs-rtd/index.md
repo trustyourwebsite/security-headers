@@ -2,6 +2,8 @@
 
 Built and maintained by [TrustYourWebsite](https://trustyourwebsite.com), a compliance scanner for EU websites.
 
+US business? The same scanner runs at [getuptocode.com](https://getuptocode.com) (Get Up to Code), focused on ADA accessibility and privacy lawsuit risk.
+
 Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-Frame-Options, and more) with A+ to F scoring. CI-friendly, with a configurable minimum-grade threshold.
 
 ## Installation
