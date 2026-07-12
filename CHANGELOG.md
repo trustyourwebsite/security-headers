@@ -18,6 +18,18 @@ All notable changes to this project will be documented in this file. The format 
 - Corrected a stray quote in the CSP wildcard warning message.
 
 
+## [1.1.1] — 2026-05-20
+
+### Added
+- **WAF detection**: scans now surface `wafBlocked` and `wafVendor` on `ScanResult` when a Web Application Firewall intercepts the probe, so a blocked request is no longer mistaken for a missing header set.
+
+### Changed
+- Updated the `homepage` field and all TrustYourWebsite links to the canonical trustyourwebsite.com domain.
+
+### Docs
+- Added a GitHub Pages landing site under `/docs`.
+
+
 ## [1.1.0] — 2026-04-19
 
 ### Added
