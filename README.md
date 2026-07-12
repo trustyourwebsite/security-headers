@@ -1,5 +1,9 @@
 # @trustyourwebsite/security-headers
 
+[![npm version](https://img.shields.io/npm/v/@trustyourwebsite/security-headers)](https://www.npmjs.com/package/@trustyourwebsite/security-headers)
+[![CI](https://github.com/trustyourwebsite/security-headers/actions/workflows/ci.yml/badge.svg)](https://github.com/trustyourwebsite/security-headers/actions/workflows/ci.yml)
+[![license](https://img.shields.io/npm/l/@trustyourwebsite/security-headers)](./LICENSE)
+
 Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-Frame-Options, etc.) with A+ to F scoring. CI-friendly with configurable minimum grade threshold.
 
 Built by [TrustYourWebsite](https://trustyourwebsite.com) — automated website compliance scanning for EU small businesses.
@@ -160,6 +164,13 @@ security-headers:
 - **Zero runtime dependencies.** Uses only Node.js built-in modules (`node:https`, `node:http`, `node:tls`, `node:fs`). Security tools should have minimal attack surface.
 - **Robust CSP parser.** Parses all CSP directives and flags dangerous values with specific remediation advice.
 - **CI-first.** `--ci` mode with exit codes makes it easy to add to any pipeline.
+
+## How this differs from securityheaders.com
+
+- **Header-only analysis.** We inspect the HTTP response headers directly and never execute the page, so there is no browser rendering, JavaScript evaluation, or third-party network activity involved in a scan.
+- **Deterministic, offline-capable scoring.** The same headers always produce the same grade. All grading logic runs locally, so you can score captured headers without an external service round-trip.
+- **CI-friendly exit codes.** `--ci --min-grade` returns a non-zero exit code when a site falls below your threshold, so it drops straight into any pipeline.
+- **Zero dependencies.** Built only on Node.js built-in modules, keeping the install footprint and attack surface minimal.
 
 ## Requirements
 
