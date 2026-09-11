@@ -1,8 +1,8 @@
 # @trustyourwebsite/security-headers
 
-Built and maintained by [TrustYourWebsite](https://trustyourwebsite.com), a compliance scanner for EU websites.
+Built and maintained by [TrustYourWebsite](https://trustyourwebsite.com/eu/en), automated website compliance scanning for businesses in the EU and the UK.
 
-US business? The same scanner runs at [getuptocode.com](https://getuptocode.com) (Get Up to Code), focused on ADA accessibility and privacy lawsuit risk.
+In the United States or Canada? The same scanner runs at [Get Up to Code](https://getuptocode.com).
 
 Zero-dependency Node.js tool that grades website security headers (HSTS, CSP, X-Frame-Options, and more) with A+ to F scoring. CI-friendly, with a configurable minimum-grade threshold.
 
