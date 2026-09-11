@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "security-headers: a command line grader for HTTP security response headers"
+abstract: "Zero-dependency Node.js command line tool that inspects a site's HTTP response headers (HSTS, Content-Security-Policy, X-Frame-Options, Referrer-Policy, Permissions-Policy and others), grades the result from A+ to F, and reports what each missing or weak header leaves exposed. Emits table, JSON and SARIF 2.1.0 output and exits non-zero below a configurable grade, so it can gate a CI pipeline."
+type: software
+authors:
+  - name: "TrustYourWebsite"
+    website: "https://trustyourwebsite.com/eu/en"
+repository-code: "https://github.com/trustyourwebsite/security-headers"
+url: "https://trustyourwebsite.github.io/security-headers/"
+license: MIT
+version: "1.2.0"
+keywords:
+  - "security headers"
+  - "HTTP"
+  - "Content-Security-Policy"
+  - "HSTS"
+  - "web security"
+  - "SARIF"
+  - "static analysis"
+  - "command line"

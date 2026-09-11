@@ -1,0 +1,40 @@
+{
+  "title": "security-headers: a command line grader for HTTP security response headers",
+  "upload_type": "software",
+  "description": "<p>Zero-dependency Node.js command line tool that inspects a site's HTTP response headers (HSTS, Content-Security-Policy, X-Frame-Options, Referrer-Policy, Permissions-Policy and others), grades the result from A+ to F, and reports what each missing or weak header leaves exposed. Emits table, JSON and SARIF 2.1.0 output and exits non-zero below a configurable grade, so it can gate a CI pipeline.</p><p>Documentation: <a href=\"https://trustyourwebsite.github.io/security-headers/\">https://trustyourwebsite.github.io/security-headers/</a>. Released on npm as <code>@trustyourwebsite/security-headers</code> under the MIT licence.</p><p>Maintained by <a href=\"https://trustyourwebsite.com/eu/en\">TrustYourWebsite</a>, which runs this check and others as a hosted scanner for businesses in the EU and the UK, and by <a href=\"https://getuptocode.com\">Get Up to Code</a>, the same scanner for the United States and Canada. This tool performs technical analysis and does not provide legal advice.</p>",
+  "creators": [
+    {
+      "name": "TrustYourWebsite",
+      "affiliation": "TrustYourWebsite"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "keywords": [
+    "security headers",
+    "HTTP",
+    "Content-Security-Policy",
+    "HSTS",
+    "web security",
+    "SARIF",
+    "static analysis",
+    "command line"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/trustyourwebsite/security-headers",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://trustyourwebsite.github.io/security-headers/",
+      "relation": "isDocumentedBy",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://www.npmjs.com/package/@trustyourwebsite/security-headers",
+      "relation": "isIdenticalTo",
+      "scheme": "url"
+    }
+  ]
+}
